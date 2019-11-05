@@ -42,7 +42,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-ROOT_URLCONF = 'django_skeleton.urls'
+ROOT_URLCONF = 'project.urls'
 
 TEMPLATE_DIRS_APPS = [os.path.join(BASE_DIR, 'templates')]
 for root, dirs, files in os.walk(BASE_DIR):
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'django_skeleton.wsgi.application'
+WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
