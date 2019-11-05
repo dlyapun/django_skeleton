@@ -11,6 +11,13 @@ DEBUG = False
 ALLOWED_HOSTS = ['*', ]
 INTERNAL_IPS = ['127.0.0.1', ]
 
+SITE_URL = 'http://127.0.0.1:8000'
+SITE_NAME = 'Django site'
+NO_REPLY_EMAIL_ADDRESS = 'no-reply@example.com'
+ADMIN_EMAIL_ADDRESS = 'admin@example.com'
+SUPPORT_EMAIL_ADDRESS = 'support@example.com'
+
+SWITCH_HASH_KEY = 'user_switch'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -20,6 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'core',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +90,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+AUTH_USER_MODEL = 'accounts.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

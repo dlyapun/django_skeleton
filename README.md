@@ -6,8 +6,8 @@
 3. Create virtual environment: `virtualenv -p python3 venv`.
 4. Activate virtual environment: `source venv/bin/activate`.
 5. Install requirements: `pip3 install -r requirements.txt`.
-6. Run migrations: `python3 manage.py migrate `.
-6. Run server: `python3 manage.py runserver `.
+6. Run migrations: `python3 manage.py migrate`.
+6. Run server: `python3 manage.py runserver`.
 
 ### Local settings
 
