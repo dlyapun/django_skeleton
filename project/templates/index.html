@@ -6,8 +6,18 @@
 {% block main %}
 <div class="container">
     <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
+        <h1>{{ site_url }}</h1>
+        <h1>{{ site_name }}</h1>
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+        <a class="btn btn-primary" href="https://accounts.google.com/o/oauth2/auth?client_id=649579642612-8q9hd3t751q1kkhvj6snmi5ma8ek3f2o.apps.googleusercontent.com&redirect_uri=http://localhost:8000/accounts/google/callback/&state=mwEKW292iuYXu9mNVAzS6QJg3bc2XP4V&response_type=code&scope=openid+email+profile">Login</a>
+        {% if not user.is_authenticated %}
+            <p>Hello anonymous</p>
+        {% else %}
+        <div class="margin-full-10">
+            <p>Hello, {{ user.username }} {{ user.email }}. You are already authorized. <a href="{% url 'logout-view' %}">(Logout)</a> </p>
+            <p><img src="{{ user.avatar }}"></p>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

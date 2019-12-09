@@ -24,6 +24,10 @@ class User(AbstractUser, BaseModel):
     token = models.CharField(default=unique_token_key(), max_length=300, null=True, blank=True)
     first_login = models.BooleanField(default=False)
 
+    avatar = models.CharField(max_length=256, null=True, blank=True)
+    google_id = models.CharField(max_length=256, null=True, blank=True)
+    facebook_id = models.CharField(max_length=256, null=True, blank=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
@@ -61,6 +65,38 @@ class User(AbstractUser, BaseModel):
     @staticmethod
     def clean_user_pk_by_secret_switch_key(hash):
         return signing.loads(hash)
+
+    @staticmethod
+    def create_google_account(user_info):
+        """
+            user_info: {
+                'id': '100000000000000000000',
+                'email': 'dlyapun@gmail.com',
+                'verified_email': True,
+                'name': 'Дмитрий Ляпун',
+                'given_name': 'Дмитрий',
+                'family_name': 'Ляпун',
+                'picture': 'https://lh3.googleusercontent.com/a-/AAuE7mC4GTiV0gw8MK7nxXMxf6bTmm9EIQxBVaXkGzJwkw',
+                'locale': 'ru'
+            }
+        """
+        user = User.objects.create(
+            username=user_info.get('email'),
+            email=user_info.get('email'),
+            first_name=user_info.get('given_name'),
+            last_name=user_info.get('family_name'),
+            avatar=user_info.get('picture'),
+            google_id=user_info.get('id'),
+        )
+        user.set_active()
+        return user
+
+    @staticmethod
+    def get_or_create_google_account(user_info):
+        user = User.objects.filter(email=user_info.get('email')).first()
+        if not user:
+            user = User.create_google_account(user_info)
+        return user
 
 
 class ResetPasswordData(models.Model):

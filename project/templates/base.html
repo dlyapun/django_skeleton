@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-signin-client_id" content="649579642612-8q9hd3t751q1kkhvj6snmi5ma8ek3f2o.apps.googleusercontent.com">
+
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
@@ -17,6 +19,7 @@
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="https://getbootstrap.com/docs/3.3/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
@@ -51,6 +54,17 @@
             </div><!--/.nav-collapse -->
         </div>
     </nav>
+
+    <div class="g-signin2" data-onsuccess="onSignIn" style="display: none;"></div>
+    <script>
+      function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      }
+    </script>
 
     {% block main %}{% endblock %}
 

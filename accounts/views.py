@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import datetime
+import requests
+import logging
 import json
 
 from .models import User, ResetPasswordData
@@ -10,7 +11,7 @@ from .forms import ChangePasswordForm, RegistrationForm, UserForm
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
-from django.http import JsonResponse, HttpResponse, Http404
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, render_to_response
 from django.urls import reverse
 from django.utils import timezone
@@ -20,6 +21,40 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView, View
 from django.conf import settings
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
+
+
+logger = logging.getLogger(__name__)
+
+class GoogleAuthView(View):
+
+    def get(self, request):
+        status_code, access_token = self.get_access_token()
+        status_code, user_info = self.get_user_info(access_token)
+        user = User.get_or_create_google_account(user_info)
+        login(request, user)
+        return redirect('/')
+
+    def get_access_token(self):
+        url = 'https://oauth2.googleapis.com/token'
+        data = {
+            'code': self.request.GET.get('code'),
+            'client_id': settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY,
+            'client_secret': settings.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET,
+            'redirect_uri': settings.SITE_URL + '/accounts/google/callback/',
+            'grant_type': 'authorization_code',
+        }
+        response = requests.post(url, data)
+        access_token = response.json().get('access_token')
+        return response.status_code, access_token
+
+    def get_user_info(self, access_token):
+        url = 'https://www.googleapis.com/oauth2/v1/userinfo'
+        data = {
+            'alt': 'json',
+            'access_token': access_token,
+        }
+        response = requests.get(url, data)
+        return response.status_code, response.json()
 
 
 class LogoutView(View):
