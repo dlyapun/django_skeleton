@@ -10,9 +10,9 @@ SECRET_KEY = 'gn9h&f26i%0)if$&^a7yx%fn$m!9=8%rc=b$ujnyjjon$ood3_'
 DEBUG = False
 DEBUG_EMAIL = False
 ALLOWED_HOSTS = ['*', ]
-INTERNAL_IPS = ['127.0.0.1', ]
+INTERNAL_IPS = ['localhost', ]
 
-SITE_URL = 'http://127.0.0.1:8000'
+SITE_URL = 'http://localhost:8000'
 SITE_NAME = 'Django site'
 NO_REPLY_EMAIL_ADDRESS = 'no-reply@example.com'
 ADMIN_EMAIL_ADDRESS = 'admin@example.com'
