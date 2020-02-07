@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+  <title>DIMA</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/melonjs.css' %}">
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+  <!-- Canvas placeholder -->
+  <div id="screen"></div>
+
+  <!-- melonJS Library -->
+  <script type="text/javascript" src="{% static 'js/melon/melonjs.js' %}"></script>
+
+  <!-- Plugin(s) -->
+  <script type="text/javascript" src="{% static 'js/melon/debugPanel.js' %}"></script>
+
+  <!-- Game Scripts -->
+  <script type="text/javascript" src="{% static 'js/game.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/resources.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/entities/entities.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/screens/play.js' %}"></script>
+
+  <!-- Bootstrap -->
+  <script type="text/javascript">
+      me.device.onReady(function onReady() {
+          game.onload();
+      });
+  </script>
+</body>
+</html>

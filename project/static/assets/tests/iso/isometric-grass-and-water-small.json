@@ -1,0 +1,20 @@
+{ "height":6,
+ "layers":[
+        {
+         "data":[2, 3, 4, 1, 1, 16, 3, 1, 1, 1, 1, 16, 4, 1, 1, 1, 1, 16, 1, 1, 1, 1, 1, 16, 1, 1, 1, 1, 1, 16, 13, 17, 13, 17, 13, 9],
+         "height":12,
+         "name":"Tile Layer 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":12,
+         "x":0,
+         "y":0
+        }],
+ "nextobjectid":1,
+ 
+ "tileheight":32,
+ "tilewidth":64,
+ "version":1,
+ "width":6
+}
