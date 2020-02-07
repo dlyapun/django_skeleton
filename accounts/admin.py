@@ -8,7 +8,10 @@ from django.utils.safestring import mark_safe
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'is_superuser', 'last_login', 'date_joined', 'login_as']
+    list_display = [
+        'username', 'email', 'first_name', 'last_name', 'is_active',
+        'is_staff', 'is_superuser', 'last_login', 'date_joined', 'login_as'
+    ]
     list_filter = ['is_active', 'is_superuser', 'is_staff']
     search_fields = ['email', 'first_name', 'last_name']
     filter_horizontal = ['groups', 'user_permissions']
@@ -17,7 +20,10 @@ class UserAdmin(admin.ModelAdmin):
         super(UserAdmin, self).__init__(*args, **kwargs)
 
     def login_as(self, obj):
-        return mark_safe('<a href="/accounts/switch_user/?user={}" class="default" type="button" >login as</a>'.format(obj.user_secret_switch_key()))
+        return mark_safe(
+            '<a href="/accounts/switch_user/?user={}">login as</a>'
+            .format(obj.user_secret_switch_key())
+        )
 
     def save_model(self, request, obj, form, change):
         super(UserAdmin, self).save_model(request, obj, form, change)
@@ -25,6 +31,7 @@ class UserAdmin(admin.ModelAdmin):
         if password:
             obj.password = make_password(form.cleaned_data.get('password'))
             obj.save()
+
 
 admin.site.register(User, UserAdmin)
 admin.site.register(ResetPasswordData)

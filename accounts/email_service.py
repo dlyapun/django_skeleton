@@ -6,6 +6,7 @@ from django.template.loader import get_template
 from django.conf import settings
 from core.email_service import EmailService
 
+
 class AccountsEmailService(EmailService):
 
     @staticmethod
@@ -16,7 +17,9 @@ class AccountsEmailService(EmailService):
         context = {
             'reset_data': reset_data,
         }
-        return AccountsEmailService.send_email(context, email_content, subject, to_email)
+        return AccountsEmailService.send_email(
+            context, email_content, subject, to_email
+        )
 
     @staticmethod
     def send_registration_email(user):
@@ -27,4 +30,6 @@ class AccountsEmailService(EmailService):
             'user': user,
         }
 
-        return AccountsEmailService.send_email(context, email_content, subject, to_email)
+        return AccountsEmailService.send_email(
+            context, email_content, subject, to_email
+        )
